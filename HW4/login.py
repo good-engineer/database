@@ -34,14 +34,14 @@ def auth(ID, name):
     #check if student exists
     
     c = user_connect.cursor()
-    c.execute("SELECT FROM student\
+    c.execute("SELECT * FROM student\
             WHERE ID=\"%s\" and name=\"%s\""%(ID,name))
     data = c.fetchone()
     if data is not None
        user_acc.set_attrs(ID,name,0,user_connect)
        return
    else
-       c.execute("SELECT FROM instructor\
+       c.execute("SELECT * FROM instructor\
                WHERE ID=\"%s\" and name=\"%s\""%(ID,name))
        data = c.fetchone()
        if data is not None
