@@ -48,7 +48,7 @@ def print_stud_report():
                 return 1
             if lhs[1] == 'Fall':
                 if rhs[1] == 'Winter':
-                    return -1;
+                    return -1
                 return 1
             if lhs[1] == 'Summer':
                 if rhs[1] == 'Spring':
@@ -74,15 +74,20 @@ def print_stud_report():
         sumOfGrades = 0.0
 
 
+        flag = 0
         for cg in something:
             sumOfCredits += cg[0]
 
             if cg[1] is None:
                 sumOfGrades += 0
             else:
+                flag = 1
                 sumOfGrades += float(cg[0]) * gp_to_float(cg[1])
 
-        print("%s\t%s\tGPA : %f"%(takes[0], takes[1], sumOfGrades/float(sumOfCredits)))
+        if flag == 0:
+            print("%s\t%s\tGPA : %s"%(takes[0], takes[1], None))
+        else:
+            print("%s\t%s\tGPA : %f"%(takes[0], takes[1], sumOfGrades/float(sumOfCredits)))
 
         print("%10s\t%40s\t%15s\t%8s\t%8s"\
               %("course_id", "title", "dept_name", "credit", "grade"))

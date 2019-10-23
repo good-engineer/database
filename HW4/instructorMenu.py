@@ -87,6 +87,7 @@ def print_course_report():
 
         print("")
 
+    c.close()
     return
 
 def print_advisee_report():
@@ -101,6 +102,7 @@ def print_advisee_report():
     for a in advisee:
         print("{:8}{:8}{:16}{}".format(a[0],a[1],a[2],a[3]))
 
+    c.close()
     return
 
 def quit_menu():
