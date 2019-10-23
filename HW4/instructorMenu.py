@@ -30,7 +30,7 @@ def print_course_report():
 
     c = user_acc.conn.cursor()
     c.execute("SELECT max(year) FROM teaches \
-               WHERE ID = {} and name = {}".format(user_acc.ID, user_acc.name))
+               WHERE ID = {}".format(user_acc.ID))
 
     recent_year = c.fetchone()[0]
 
@@ -55,12 +55,14 @@ def print_course_report():
     print("Course report - {} {}".format(recent_year, recent_semester))
 
     for t in teaches:
-        c.execute("select * from section natural join course \
-                   where course_id = {} and sec_id = {}".format(t[1], t[2]))
+        s="select * from section natural join course \
+                   where course_id = %s and sec_id = %s"
+        c.execute(s,(t[1], t[2]))
         a = c.fetchone()
 
-        c.execute("select * from time_slot \
-                   where time_slot_id = {}".format(a[6]))
+        s="select * from time_slot \
+                   where time_slot_id = %s"
+        c.execute(s, a[6])
         times = c.fetchall()
         time_str = ''
         for i, time in enumerate(times):
@@ -68,15 +70,16 @@ def print_course_report():
             if i + 1 != len(times):
                 time_str += ', '
             else:
-                time_str += str(time[2]) + ' : ' + str(time[3]) + ' - ' + str(time[4]) \
+                time_str += " " + str(time[2]) + ' : ' + str(time[3]) + ' - ' + str(time[4]) \
                             + ' : ' + str(time[5])
 
         print("{:8}{}      [{} {}] ({}, {})".format(a[0], a[7], a[4], a[5], a[6], time_str))
         print("ID      name    dept_name       grade")
 
-        c.execute("select * from takes natural join student \
-                   where course_id = {} and sec_id = {} and \
-                   semester = {} and year = {}".format(t[1],t[2],t[3],t[4]))
+        s="select * from takes natural join student \
+                   where course_id = %s and sec_id = %s and \
+                   semester = %s and year = %s"
+        c.execute(s,(t[1],t[2],t[3],t[4]))
         students = c.fetchall()
 
         for student in students:
@@ -87,6 +90,16 @@ def print_course_report():
     return
 
 def print_advisee_report():
+
+    print("ID      name    dept_name       tot_cred")
+
+    c = user_acc.conn.cursor()
+    c.execute("select student.* from advisor, student \
+                where advisor.i_id = {} and advisor.s_id = student.id".format(user_acc.ID))
+    advisee = c.fetchall()
+
+    for a in advisee:
+        print("{:8}{:8}{:16}{}".format(a[0],a[1],a[2],a[3]))
 
     return
 

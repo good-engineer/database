@@ -12,7 +12,7 @@ def student_menu():
         print("select student menu")
         print("1) Student Report")
         print("2) View Time Table")
-        print("3) Quit)")
+        print("3) Quit")
         menu_num = input("Enter : ")
 
         switcher = {
@@ -37,8 +37,8 @@ def print_stud_report():
     data = c.fetchone()
 
     print("You are a member of {}".format(data[2]))
-    print("You have taken total {} credits\n".format(data[3]))
-    print("Semester report\n")
+    print("You have taken total {} credits".format(data[3]))
+    print("Semester report")
 
     return
 
