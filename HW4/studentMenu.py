@@ -5,20 +5,20 @@ from DBconnection import *
 
 def student_menu():
 
-    menu_num = -1
+    menu_num = ''
 
     while(menu_num != '0'):
         print("\n\nWelcome %s"%user_acc.name)
-        print("select student menu\n")
-        print("1) Student Report\n")
-        print("2) View Time Table\n")
-        print("3) Quit)\n")
+        print("select student menu")
+        print("1) Student Report")
+        print("2) View Time Table")
+        print("3) Quit)")
         menu_num = input("Enter : ")
 
         switcher = {
-                0 : quit_menu
-                1 : print_stud_report,
-                2 : print_time_table
+                '0' : quit_menu,
+                '1' : print_stud_report,
+                '2' : print_time_table
         }
 
         selected_func = switcher.get(menu_num, print_wrong)
@@ -29,6 +29,16 @@ def student_menu():
 
 
 def print_stud_report():
+
+    c = user_acc.conn.cursor()
+    c.execute("SELECT * FROM student \
+               WHERE ID = {} and name = {}".format(user_acc.ID, user_acc.name))
+    
+    data = c.fetchone()
+
+    print("You are a member of {}".format(data[2]))
+    print("You have taken total {} credits\n".format(data[3]))
+    print("Semester report\n")
 
     return
 
