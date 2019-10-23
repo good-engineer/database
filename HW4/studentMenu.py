@@ -108,8 +108,34 @@ def print_stud_report():
 
 def print_time_table():
     c = user_acc.conn.cursor()
+    c.execute(f'SELECT distinct year, semester FROM student NATURAL JOIN takes WHERE ID = {user_acc.ID} ORDER BY year DESC')
+    semester = c.fetchall()
 
+    def compareSemester(lhs, rhs):
+        if lhs[0] > rhs[0]:
+            return 1
+        elif lhs[0] < rhs[0]:
+            return -1
+        else:
+            if lhs[1] == 'Winter':
+                return 1
+            if lhs[1] == 'Fall':
+                if rhs[1] == 'Winter':
+                    return -1
+                return 1
+            if lhs[1] == 'Summer':
+                if rhs[1] == 'Spring':
+                    return 1
+                return -1
+            if lhs[1] == 'Spring':
+                return -1
 
+    sorted_semester = sorted(semester, key=cmp_to_key(compareSemester), reverse=True)
+    i = 1
+    for semester in sorted_semester:
+        print("%d) %s %s" % (i, semester[0], semester[1]))
+        i += 1
+    user_input = input()
     print("\nTime Table\n")
     print("%10s\t%40s\t%15s\t%10s\t%10s"%("course_id", "title", "day", "start_time", "end_time"))
 

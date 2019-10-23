@@ -4,8 +4,8 @@ import MySQLdb
 
 db_host = "localhost"
 db_user = "root"
-db_pw = " "
-db_name = "pyhton_testdb"
+db_pw = ""
+db_name = "python_testdb"
 
 connect_pool = []
 
