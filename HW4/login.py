@@ -19,7 +19,7 @@ def login():
         auth(ID,name)
 
     switcher = {
-            0 : student_menu.
+            0 : student_menu,
             1 : instructor_menu
     }
 
@@ -37,17 +37,17 @@ def auth(ID, name):
     c.execute("SELECT * FROM student\
             WHERE ID=\"%s\" and name=\"%s\""%(ID,name))
     data = c.fetchone()
-    if data is not None
+    if data is not None:
        user_acc.set_attrs(ID,name,0,user_connect)
        return
-   else
-       c.execute("SELECT * FROM instructor\
+    else:
+        c.execute("SELECT * FROM instructor\
                WHERE ID=\"%s\" and name=\"%s\""%(ID,name))
-       data = c.fetchone()
-       if data is not None
+        data = c.fetchone()
+        if data is not None:
            user_acc.set_attrs(ID,name,1,user_connect)
            return
-       else
+        else:
            print("Your ID and name is not valid!")
            return_connect(user_connect)
            return

@@ -26,12 +26,11 @@ def instructor_menu():
     
     return
 
-def print_course_report(c):
+def print_course_report():
 
-    # c = user_acc.conn.cursor()
-    # c.execute("SELECT max(year) FROM teaches \
-    #            WHERE ID = {} and name = {}".format(user_acc.ID, user_acc.name))
-    c.execute("select max(year) from teaches")
+    c = user_acc.conn.cursor()
+    c.execute("SELECT max(year) FROM teaches \
+               WHERE ID = {} and name = {}".format(user_acc.ID, user_acc.name))
 
     recent_year = c.fetchone()[0]
 

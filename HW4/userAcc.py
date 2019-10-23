@@ -6,7 +6,7 @@ class UserAcc():
     role=0
     conn=None
 
-    def __int__(self, ID=0,name="",role=0,conn=None):
+    def __init__(self, ID=0,name="",role=0,conn=None):
         self.ID = ID
         self.name = name
         self.role = role
@@ -18,6 +18,6 @@ class UserAcc():
         self.role = role
         self.conn = conn
 
-#creat user account object 
+#create user account object 
 
 user_acc = UserAcc()

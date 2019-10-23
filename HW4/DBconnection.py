@@ -10,7 +10,8 @@ db_name = "pyhton_testdb"
 connect_pool = []
 
 def connectDB():
-    connect = MySQLdb.connect(db_host,db_user,db_pw,db_name)
+    connect = MySQLdb.connect(host=db_host, user=db_user,
+                              password=db_pw, database=db_name)
     return connect
 
 def get_connect():
